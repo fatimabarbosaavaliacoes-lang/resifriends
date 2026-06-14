@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 3 — Saúde da Mulher · Resifriends 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#C9A84C;
+    --gold-deep:#8B6914;
+    --brown:#4a3a1e;
+    --ink:#241c0e;
+    --paper:#fdfaf2;
+    --card:#ffffff;
+    --green:#2e8b57;
+    --red:#c0392b;
+    --line:#e6dcc0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Mulish',sans-serif;
+    background:
+      radial-gradient(1100px 500px at 50% -8%, #2a2112 0%, #1a140a 55%, #120d06 100%);
+    color:var(--ink);
+    min-height:100vh;
+    padding:18px;
+    line-height:1.5;
+  }
+  .shell{max-width:780px;margin:0 auto}
+
+  /* CARD BASE */
+  .card{
+    background:var(--card);
+    border-radius:20px;
+    box-shadow:0 22px 50px rgba(0,0,0,.4);
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .stripe{height:5px;background:linear-gradient(90deg,var(--gold-deep),var(--gold),var(--gold-deep))}
+
+  /* HEADER */
+  .head{
+    text-align:center;padding:30px 26px 22px;
+    background:linear-gradient(180deg,#fffdf6,#fbf5e6);
+    border-bottom:1px solid var(--line);
+  }
+  .badge-mod{
+    display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.16em;
+    text-transform:uppercase;color:#fff;background:var(--gold-deep);
+    padding:5px 14px;border-radius:30px;
+  }
+  .head h1{
+    font-family:'Playfair Display',serif;font-weight:900;
+    font-size:2rem;color:var(--brown);margin:12px 0 4px;line-height:1.05;
+  }
+  .head h1 em{color:var(--gold-deep);font-style:italic}
+  .head .sub{font-size:.92rem;color:#8a7c5e;font-weight:600}
+  .head .by{font-size:.78rem;color:#b3a584;margin-top:8px;font-weight:600}
+
+  .body{padding:24px 26px 30px}
+
+  /* INFO STRIP */
+  .info-strip{
+    display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:8px;
+  }
+  .pill{
+    font-size:.76rem;font-weight:700;color:var(--gold-deep);
+    background:#faf3df;border:1px solid var(--line);border-radius:30px;padding:6px 13px;
+  }
+
+  /* TEMA LIST */
+  .section-title{
+    font-family:'Playfair Display',serif;font-weight:800;color:var(--brown);
+    font-size:1.25rem;margin:18px 0 12px;text-align:center;
+  }
+  .temas{display:grid;gap:12px}
+  .tema-btn{
+    display:flex;align-items:center;gap:14px;
+    background:#fffdf7;border:1.5px solid var(--line);border-radius:14px;
+    padding:15px 16px;cursor:pointer;text-align:left;width:100%;
+    transition:transform .15s,border-color .2s,box-shadow .2s;font-family:'Mulish';
+  }
+  .tema-btn:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 8px 18px rgba(201,168,76,.18)}
+  .tema-btn .emoji{font-size:1.8rem;flex:none}
+  .tema-btn .t-info{flex:1}
+  .tema-btn .t-nome{font-weight:800;color:var(--brown);font-size:1.02rem}
+  .tema-btn .t-meta{font-size:.78rem;color:#9a8c6c;font-weight:600}
+  .tema-btn .arrow{color:var(--gold);font-size:1.3rem;font-weight:800}
+  .tema-btn .lock{font-size:1.1rem}
+
+  /* FORMS / INPUTS */
+  label{display:block;font-weight:700;color:var(--brown);font-size:.9rem;margin:14px 0 6px}
+  input[type=text],input[type=password]{
+    width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:11px;
+    font-family:'Mulish';font-size:1rem;background:#fffdf7;
+  }
+  input:focus{outline:none;border-color:var(--gold)}
+  .btn{
+    width:100%;border:none;cursor:pointer;font-family:'Mulish';font-weight:800;
+    font-size:1.02rem;padding:14px;border-radius:12px;margin-top:18px;
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold));color:#fff;
+    letter-spacing:.03em;transition:filter .2s,transform .1s;
+    box-shadow:0 8px 18px rgba(139,105,20,.3);
+  }
+  .btn:hover{filter:brightness(1.06)}
+  .btn:active{transform:translateY(2px)}
+  .btn.ghost{background:transparent;color:var(--gold-deep);border:1.5px solid var(--gold);box-shadow:none}
+  .btn.wa{background:#25D366;box-shadow:0 8px 18px rgba(37,211,102,.3)}
+
+  .msg{margin-top:12px;padding:11px 14px;border-radius:10px;font-size:.88rem;font-weight:600;display:none}
+  .msg.err{display:block;background:#fdeceb;color:var(--red);border:1px solid #f3c6c2}
+  .msg.warn{display:block;background:#fef6e0;color:var(--gold-deep);border:1px solid #f0dca0}
+
+  .back{
+    background:none;border:none;color:var(--gold-deep);font-weight:700;cursor:pointer;
+    font-family:'Mulish';font-size:.9rem;margin-bottom:6px;padding:4px 0;
+  }
+
+  /* QUIZ */
+  .qcount{font-size:.82rem;font-weight:700;color:#9a8c6c;text-align:center;margin-bottom:6px}
+  .qbar-track{height:9px;background:#f0e8d2;border-radius:20px;overflow:hidden;margin-bottom:18px}
+  .qbar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold-deep),var(--gold));transition:width .4s}
+  .banca{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.05em;color:var(--gold-deep);background:#faf3df;border:1px solid var(--line);border-radius:20px;padding:3px 10px;margin-bottom:10px}
+  .enun{font-size:1.06rem;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:16px}
+  .alts{display:grid;gap:10px}
+  .alt{
+    display:flex;gap:11px;align-items:flex-start;background:#fffdf7;
+    border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;cursor:pointer;
+    font-family:'Mulish';font-size:.96rem;text-align:left;transition:border-color .2s,background .2s,transform .12s;
+  }
+  .alt:hover:not(.locked){border-color:var(--gold);transform:translateX(3px)}
+  .alt .letter{flex:none;width:26px;height:26px;border-radius:7px;background:#f0e8d2;color:var(--brown);font-weight:800;display:grid;place-items:center;font-size:.82rem}
+  .alt.sel{border-color:var(--gold-deep);background:#faf3df}
+  .alt.sel .letter{background:var(--gold-deep);color:#fff}
+  .alt.locked{cursor:default}
+
+  /* RESULT */
+  .score-ring{text-align:center;margin:6px 0 14px}
+  .score-num{font-family:'Playfair Display',serif;font-weight:900;font-size:3.4rem;color:var(--gold-deep);line-height:1}
+  .score-label{font-size:.85rem;color:#9a8c6c;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+  .stat-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0}
+  .stat{background:#fffdf7;border:1px solid var(--line);border-radius:12px;padding:11px 18px;min-width:90px;text-align:center}
+  .stat .n{font-weight:900;font-size:1.4rem;color:var(--brown)}
+  .stat .l{font-size:.7rem;color:#9a8c6c;font-weight:700;text-transform:uppercase}
+  .stat.ok .n{color:var(--green)}
+  .stat.no .n{color:var(--red)}
+
+  .review-box{background:#fef6e0;border:1px solid #f0dca0;border-radius:12px;padding:14px 16px;margin-top:16px}
+  .review-box h3{font-family:'Playfair Display',serif;color:var(--gold-deep);font-size:1.05rem;margin-bottom:8px}
+  .review-box ul{margin-left:18px;font-size:.9rem;color:var(--brown)}
+
+  .code-box{background:var(--ink);color:var(--gold);border-radius:12px;padding:14px;margin-top:16px;text-align:center;font-family:monospace;font-size:.95rem;word-break:break-all;letter-spacing:.04em}
+  .code-box .lbl{display:block;color:#bba85f;font-family:'Mulish';font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+
+  /* GABARITO */
+  .gab-item{border:1px solid var(--line);border-radius:12px;padding:14px 15px;margin-bottom:12px;background:#fffdf7}
+  .gab-item.ok{border-left:5px solid var(--green)}
+  .gab-item.no{border-left:5px solid var(--red)}
+  .gab-q{font-weight:800;color:var(--brown);font-size:.95rem;margin-bottom:8px}
+  .gab-a{font-size:.88rem;margin:3px 0}
+  .gab-a.correct{color:var(--green);font-weight:700}
+  .gab-a.yourwrong{color:var(--red);font-weight:700}
+  .gab-coment{font-size:.86rem;color:#5a4d2e;background:#faf3df;border-radius:9px;padding:10px 12px;margin-top:8px}
+  .gab-coment b{color:var(--gold-deep)}
+
+  .print-header{display:none}
+  .hide{display:none!important}
+  .center{text-align:center}
+  .muted{color:#9a8c6c;font-size:.85rem}
+
+  @media print{
+    body{background:#fff;padding:0}
+    .no-print{display:none!important}
+    .print-header{display:block!important}
+    .card{box-shadow:none;border:none}
+    .gab-coment{background:#f5f5f5}
+  }
+  @media(max-width:560px){
+    .head h1{font-size:1.6rem}
+    .enun{font-size:1rem}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="card">
+    <div class="stripe"></div>
+
+    <!-- ============ TELA: BOAS-VINDAS / SELEÇÃO DE TEMA ============ -->
+    <div id="screen-home">
+      <div class="head">
+        <span class="badge-mod">Módulo 3</span>
+        <h1>Saúde da <em>Mulher</em></h1>
+        <div class="sub">Preparatório Resifriends 2026 · Residência em Enfermagem</div>
+        <div class="by">By Fátima Barbosa</div>
+      </div>
+      <div class="body">
+        <div class="info-strip">
+          <span class="pill">✅ 25 questões</span>
+          <span class="pill">🏛️ Bancas 2023–2025</span>
+          <span class="pill">🔢 6 tentativas/tema</span>
+          <span class="pill">🖨️ Gabarito comentado</span>
+        </div>
+        <div class="section-title">Escolha o tema para treinar</div>
+        <div class="temas" id="temaList"></div>
+        <p class="muted center" style="margin-top:16px">🔐 Cada tema é liberado pela professora com uma senha, conforme o avanço das aulas.</p>
+      </div>
+    </div>
+
+    <!-- ============ TELA: SENHA + NOME ============ -->
+    <div id="screen-login" class="hide">
+      <div class="head">
+        <span class="badge-mod" id="login-emoji">🤰</span>
+        <h1 id="login-tema">Tema</h1>
+        <div class="sub">Digite a senha e seu nome para começar</div>
+      </div>
+      <div class="body">
+        <button class="back no-print" onclick="goHome()">← Voltar aos temas</button>
+        <label>🔑 Senha do tema</label>
+        <input type="password" id="inSenha" placeholder="Senha fornecida pela professora">
+        <label>👤 Seu nome completo</label>
+        <input type="text" id="inNome" placeholder="Nome e sobrenome">
+        <div class="msg" id="loginMsg"></div>
+        <button class="btn" onclick="tryStart()">🚀 Iniciar simulado</button>
+        <button class="btn ghost no-print" id="lastBtn" onclick="showLast()" style="display:none">📄 Ver meu último resultado</button>
+        <button class="btn wa no-print" id="waBtn" onclick="openWA()" style="display:none">📱 Solicitar liberação via WhatsApp</button>
+      </div>
+    </div>
+
+    <!-- ============ TELA: QUIZ ============ -->
+    <div id="screen-quiz" class="hide">
+      <div class="stripe"></div>
+      <div class="body">
+        <div class="qcount" id="qcount">Questão 1 de 25</div>
+        <div class="qbar-track"><div class="qbar-fill" id="qbar"></div></div>
+        <span class="banca" id="qbanca">BANCA</span>
+        <div class="enun" id="qenun"></div>
+        <div class="alts" id="qalts"></div>
+        <button class="btn" id="nextBtn" onclick="nextQ()" disabled>Responder →</button>
+      </div>
+    </div>
+
+    <!-- ============ TELA: RESULTADO ============ -->
+    <div id="screen-result" class="hide">
+      <div class="head">
+        <div class="print-header">
+          <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--gold-deep)">RESIFRIENDS 2026</div>
+          <div style="font-size:.8rem;color:#666">Módulo 3 — Saúde da Mulher · By Fátima Barbosa</div>
+        </div>
+        <span class="badge-mod">Resultado</span>
+        <h1 id="res-tema" style="font-size:1.5rem">Tema</h1>
+        <div class="sub" id="res-nome">Aluno</div>
+      </div>
+      <div class="body">
+        <div class="score-ring">
+          <div class="score-num" id="res-pct">0%</div>
+          <div class="score-label">Aproveitamento</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat ok"><div class="n" id="res-ok">0</div><div class="l">Acertos</div></div>
+          <div class="stat no"><div class="n" id="res-no">0</div><div class="l">Erros</div></div>
+          <div class="stat"><div class="n" id="res-time">0:00</div><div class="l">Tempo</div></div>
+        </div>
+
+        <div class="review-box" id="reviewBox"></div>
+
+        <div class="code-box no-print">
+          <span class="lbl">📋 Código de resultado — cole na entrega do Classroom</span>
+          <span id="res-code">—</span>
+        </div>
+
+        <button class="btn no-print" onclick="toggleGab()">📖 Ver gabarito comentado</button>
+        <div id="gabWrap" class="hide" style="margin-top:18px"></div>
+
+        <button class="btn ghost no-print" onclick="window.print()" style="margin-top:10px">🖨️ Imprimir gabarito comentado</button>
+        <button class="btn ghost no-print" onclick="goHome()" style="margin-top:10px">← Voltar ao início</button>
+      </div>
+    </div>
+
+  </div>
+  <p class="center" style="color:#8a7c5e;font-size:.78rem;margin-top:16px;font-weight:600">Resifriends 2026 · Módulo 3 — Saúde da Mulher</p>
+</div>
+
+<script>
+// ============================================================
+// MÓDULO 3 — SAÚDE DA MULHER · RESIFRIENDS 2026
+// 25 questões · estilo bancas UPE/FGV/ENARE-EBSERH/SESPE/AUCPP 2023-2025
+// correta: índice 0..4  (A=0, B=1, C=2, D=3, E=4)
+// ============================================================
+const TEMAS = [
+  {
+    "id": "prenatal",
+    "nome": "Pré-natal e Gestação de Risco",
+    "emoji": "🤰",
+    "senha": "prenatal@mod3"
+  },
+  {
+    "id": "parto",
+    "nome": "Parto, Puerpério e Aleitamento",
+    "emoji": "🍼",
+    "senha": "parto@mod3"
+  },
+  {
+    "id": "rastreio",
+    "nome": "Rastreio (Colo e Mama) e Planej. Familiar",
+    "emoji": "🎀",
+    "senha": "rastreio@mod3"
+  },
+  {
+    "id": "climaterio",
+    "nome": "Climatério, IST e Violência",
+    "emoji": "🌸",
+    "senha": "climaterio@mod3"
+  }
+];
+
+const QUESTOES = [
+{
+ tema:"prenatal", banca:"ENARE 2024",
+ enunciado:"Gestante de 1º trimestre comparece à primeira consulta de pré-natal. Conforme o Ministério da Saúde, qual é o número mínimo de consultas de pré-natal recomendado para uma gestação de baixo risco?",
+ alts:["3 consultas","Exatamente 4 consultas","No mínimo 10 consultas","No mínimo 6 consultas","Não há número mínimo definido"],
+ correta:3,
+ coment:"O MS recomenda <b>no mínimo 6 consultas</b> de pré-natal: idealmente 1 no 1º trimestre, 2 no 2º e 3 no 3º trimestre. O acompanhamento deve iniciar precocemente (até 12 semanas)."
+},
+{
+ tema:"prenatal", banca:"UPE 2025",
+ enunciado:"Na primeira consulta de pré-natal, a enfermeira calcula a idade gestacional e a data provável do parto (DPP). Pela Regra de Naegele, a DPP é obtida:",
+ alts:["Somando 7 dias ao 1º dia da DUM e subtraindo 3 meses (+1 ano)","Somando 7 dias e 9 meses ao 1º dia da DUM","Somando 10 dias e retirando 2 meses da DUM","Contando 40 semanas a partir da concepção","Somando 14 dias à data da última menstruação"],
+ correta:0,
+ coment:"<b>Regra de Naegele:</b> ao 1º dia da DUM soma-se 7 dias e subtraem-se 3 meses (acrescentando 1 ano quando necessário). Equivale a 40 semanas a partir da DUM."
+},
+{
+ tema:"prenatal", banca:"EBSERH 2024",
+ enunciado:"Gestante de 34 semanas apresenta PA 160/110 mmHg, proteinúria e cefaleia. O diagnóstico mais provável e a conduta prioritária são:",
+ alts:["Hipertensão gestacional; liberar para casa com repouso","Eclâmpsia; apenas anti-hipertensivo oral","Pré-eclâmpsia grave; avaliação imediata e sulfato de magnésio conforme indicação","Hipertensão crônica; manter pré-natal de rotina","Cefaleia tensional; analgésico comum"],
+ correta:2,
+ coment:"PA ≥160/110 com proteinúria e sintomas (cefaleia) caracteriza <b>pré-eclâmpsia grave</b>. Conduta: avaliação imediata, controle pressórico e <b>sulfato de magnésio</b> para prevenir eclâmpsia (convulsão)."
+},
+{
+ tema:"prenatal", banca:"FGV 2025",
+ enunciado:"O sulfato de magnésio é usado na pré-eclâmpsia grave/eclâmpsia. Qual sinal indica INTOXICAÇÃO por magnésio e exige suspensão imediata?",
+ alts:["Hiperreflexia tendinosa","Hipertensão de rebote","Taquicardia materna isolada","Abolição do reflexo patelar, FR < 12 irpm e oligúria","Aumento dos movimentos fetais"],
+ correta:3,
+ coment:"Sinais de intoxicação por magnésio: <b>abolição do reflexo patelar, FR &lt; 12 irpm e diurese &lt; 25-30 mL/h</b>. Antídoto: <b>gluconato de cálcio</b>. Monitorar reflexos, FR e diurese."
+},
+{
+ tema:"prenatal", banca:"SESPE 2024",
+ enunciado:"Na avaliação do teste de tolerância à glicose, gestante apresenta glicemia de jejum de 98 mg/dL na 26ª semana. Segundo critérios atuais, isso caracteriza:",
+ alts:["Glicemia normal de jejum na gestação","Diabetes mellitus gestacional","Diabetes prévio (overt)","Hipoglicemia gestacional","Necessidade de insulina imediata"],
+ correta:1,
+ coment:"Na gestação, glicemia de jejum <b>≥ 92 e &lt; 126 mg/dL</b> diagnostica <b>diabetes mellitus gestacional (DMG)</b>. Valores ≥126 (jejum) sugerem diabetes prévio."
+},
+{
+ tema:"prenatal", banca:"AUCPP 2025",
+ enunciado:"Sobre a suplementação no pré-natal de baixo risco, o Ministério da Saúde preconiza rotineiramente:",
+ alts:["Ácido fólico apenas após o parto","Cálcio e vitamina D para todas obrigatoriamente","Apenas polivitamínico no 3º trimestre","Ácido fólico (periconcepcional/1º trim.) e ferro (a partir da 20ª sem. ou conforme avaliação)","Nenhuma suplementação de rotina"],
+ correta:3,
+ coment:"Recomenda-se <b>ácido fólico</b> (preferencialmente periconcepcional, prevenção de defeitos do tubo neural) e <b>ferro</b> (suplementação para prevenir anemia, geralmente a partir da 20ª semana ou conforme avaliação clínica)."
+},
+{
+ tema:"prenatal", banca:"ENARE 2025",
+ enunciado:"Gestante Rh negativo, com parceiro Rh positivo e Coombs indireto negativo. A conduta para prevenção da aloimunização Rh inclui:",
+ alts:["Nenhuma medida, pois o Coombs é negativo","Transfusão intrauterina de rotina","Apenas repetir Coombs no pós-parto","Corticoide para maturação","Imunoglobulina anti-D, geralmente por volta da 28ª semana e após o parto se RN Rh positivo"],
+ correta:4,
+ coment:"Profilaxia da doença hemolítica: <b>imunoglobulina anti-D</b> por volta da <b>28ª semana</b> e <b>nas primeiras 72h após o parto</b> se o RN for Rh positivo. Também indicada após sangramentos/procedimentos."
+},
+{
+ tema:"parto", banca:"UPE 2024",
+ enunciado:"Parturiente em trabalho de parto ativo apresenta dilatação cervical de 6 cm com contrações regulares. Segundo a classificação atual, ela está na fase:",
+ alts:["Latente do 1º período","Expulsiva (2º período)","Dequitação (3º período)","Ativa do 1º período (dilatação)","Quarto período (Greenberg)"],
+ correta:3,
+ coment:"A <b>fase ativa</b> do 1º período costuma ser considerada a partir de <b>5-6 cm</b> de dilatação, com contrações regulares e efetivas. A fase latente vai até ~5 cm."
+},
+{
+ tema:"parto", banca:"EBSERH 2025",
+ enunciado:"O 3º período do parto (dequitação) corresponde a:",
+ alts:["Da dilatação total até a expulsão fetal","Do início das contrações até dilatação completa","Da expulsão fetal até a saída da placenta","Primeira hora após a saída da placenta","Período de latência das contrações"],
+ correta:2,
+ coment:"O <b>3º período (dequitação/secundamento)</b> vai da <b>expulsão fetal até a saída da placenta</b>. O 1º é dilatação, o 2º expulsivo e o 4º (Greenberg) é a 1ª hora pós-dequitação."
+},
+{
+ tema:"parto", banca:"FGV 2024",
+ enunciado:"No manejo ativo do 3º período para prevenção de hemorragia pós-parto, o uterotônico de primeira escolha é:",
+ alts:["Misoprostol sublingual","Ergometrina em qualquer puérpera","Ácido tranexâmico isolado","Carbetocina apenas em cesárea","Ocitocina (10 UI IM ou conforme protocolo) logo após o desprendimento"],
+ correta:4,
+ coment:"A <b>ocitocina</b> é o uterotônico de <b>primeira escolha</b> no manejo ativo do 3º período, reduzindo o risco de hemorragia pós-parto. Misoprostol é alternativa quando ocitocina indisponível."
+},
+{
+ tema:"parto", banca:"SESPE 2025",
+ enunciado:"Puérpera de pós-parto vaginal há 6 horas apresenta útero amolecido, acima da cicatriz umbilical e sangramento vaginal aumentado. A primeira conduta da enfermagem é:",
+ alts:["Aguardar involução espontânea","Realizar massagem uterina e estimular esvaziamento vesical, comunicando a equipe","Administrar analgésico e observar","Posicionar em Trendelenburg e suspender amamentação","Solicitar exames de coagulação antes de qualquer ação"],
+ correta:1,
+ coment:"Útero amolecido (hipotônico) e elevado sugere <b>atonia uterina</b> + bexiga cheia, principal causa de <b>hemorragia pós-parto</b>. Conduta imediata: <b>massagem uterina</b>, esvaziar a bexiga e acionar a equipe para uterotônicos."
+},
+{
+ tema:"parto", banca:"AUCPP 2024",
+ enunciado:"Sobre o aleitamento materno, segundo a OMS e o Ministério da Saúde, recomenda-se:",
+ alts:["Aleitamento exclusivo até os 4 meses","Aleitamento materno exclusivo até os 6 meses e complementado até 2 anos ou mais","Introdução de água e chás desde o nascimento","Fórmula complementar de rotina no 1º mês","Aleitamento exclusivo até 1 ano"],
+ correta:1,
+ coment:"Recomenda-se <b>aleitamento materno exclusivo até os 6 meses</b> (sem água, chás ou outros alimentos) e <b>complementado até 2 anos ou mais</b>."
+},
+{
+ tema:"parto", banca:"ENARE 2024",
+ enunciado:"Puérpera relata dor e fissura mamilar ao amamentar. A principal orientação da enfermagem para prevenção/correção é:",
+ alts:["Suspender a amamentação por 48h","Corrigir a pega: boca bem aberta, abocanhando a aréola, queixo tocando a mama","Usar bicos de silicone permanentemente","Aplicar álcool no mamilo após as mamadas","Limitar as mamadas a 5 minutos cada"],
+ correta:1,
+ coment:"A causa mais comum de fissura é a <b>pega incorreta</b>. Orienta-se boca bem aberta, lábio inferior evertido, <b>abocanhar a maior parte da aréola</b>, queixo tocando a mama. O próprio leite pode ser usado para hidratar o mamilo."
+},
+{
+ tema:"parto", banca:"UPE 2025",
+ enunciado:"São considerados loquios FISIOLÓGICOS do puerpério, em sua evolução temporal correta:",
+ alts:["Rubros (lochia rubra) → serosos (serosa) → alvos (alba)","Serosos → rubros → alvos","Alvos → rubros → serosos","Apenas sanguinolentos por 4 semanas","Purulentos nas primeiras 24h"],
+ correta:0,
+ coment:"Evolução fisiológica dos lóquios: <b>rubra</b> (sanguinolenta, ~1-3 dias) → <b>serosa</b> (rósea/acastanhada) → <b>alba</b> (branco-amarelada). Loquios fétidos/purulentos sugerem infecção."
+},
+{
+ tema:"rastreio", banca:"EBSERH 2024",
+ enunciado:"Segundo o INCA/Ministério da Saúde, o rastreamento do câncer do colo do útero com exame citopatológico é recomendado para mulheres de:",
+ alts:["25 a 64 anos que já tiveram atividade sexual, a cada 3 anos após 2 exames anuais normais","20 a 70 anos, anualmente sempre","18 a 50 anos, a cada 5 anos","Apenas após os 40 anos","30 a 60 anos, uma única vez na vida"],
+ correta:0,
+ coment:"O rastreio do câncer do colo é indicado dos <b>25 aos 64 anos</b>, em mulheres que já iniciaram atividade sexual. Após <b>2 exames anuais normais</b>, repete-se a cada <b>3 anos</b>."
+},
+{
+ tema:"rastreio", banca:"FGV 2025",
+ enunciado:"Sobre o rastreamento do câncer de mama no Brasil (MS/INCA), a mamografia é recomendada de rotina para:",
+ alts:["Todas as mulheres a partir de 25 anos, anualmente","Apenas mulheres com histórico familiar","Mulheres de 50 a 69 anos, a cada 2 anos","Mulheres acima de 70 anos mensalmente","Somente após resultado de autoexame alterado"],
+ correta:2,
+ coment:"O rastreamento mamográfico de rotina do MS/INCA é para <b>50 a 69 anos, bienal (a cada 2 anos)</b>. O autoexame não substitui a mamografia, mas estimula o autoconhecimento."
+},
+{
+ tema:"rastreio", banca:"AUCPP 2024",
+ enunciado:"Em relação aos métodos contraceptivos, é classificado como método de barreira:",
+ alts:["Preservativo masculino/feminino","DIU de cobre","Anticoncepcional oral combinado","Injetável trimestral","Implante subdérmico"],
+ correta:0,
+ coment:"O <b>preservativo (masculino e feminino)</b> é método de <b>barreira</b> e o único que também previne ISTs. DIU é intrauterino; pílula, injetável e implante são hormonais."
+},
+{
+ tema:"rastreio", banca:"ENARE 2025",
+ enunciado:"Sobre o DIU de cobre (não hormonal), é correto afirmar:",
+ alts:["Atua principalmente por efeito espermicida/inflamatório local, sem hormônio, com longa duração","É um método hormonal de curta duração","Protege contra ISTs","É contraindicado em nuligestas em qualquer situação","Precisa ser trocado mensalmente"],
+ correta:0,
+ coment:"O <b>DIU de cobre</b> é <b>não hormonal</b>; o cobre gera ambiente inflamatório/espermicida que impede a fecundação. É de <b>longa duração</b> (até ~10 anos) e <b>não protege contra ISTs</b>."
+},
+{
+ tema:"rastreio", banca:"SESPE 2024",
+ enunciado:"Uma usuária deseja contracepção de emergência após relação desprotegida. Quanto ao levonorgestrel, a orientação correta é:",
+ alts:["Só funciona se usado após 5 dias","Substitui o uso regular de contraceptivo","Deve ser usado o quanto antes, idealmente até 72h, sendo mais eficaz quanto mais precoce","Provoca aborto de gestação já implantada","Só pode ser usado uma vez na vida"],
+ correta:2,
+ coment:"A contracepção de emergência com <b>levonorgestrel</b> deve ser usada <b>o mais precocemente possível, idealmente até 72h</b> (pode haver eficácia reduzida até 120h). Não é abortiva e não substitui método regular."
+},
+{
+ tema:"rastreio", banca:"UPE 2024",
+ enunciado:"Resultado citopatológico com 'células escamosas atípicas de significado indeterminado' corresponde à sigla:",
+ alts:["LSIL","HSIL","AGC","ASC-US","Carcinoma invasor"],
+ correta:3,
+ coment:"<b>ASC-US</b> = atipias de células escamosas de significado indeterminado, possivelmente não neoplásicas. Conduta varia com a idade; geralmente repetição da citologia ou seguimento conforme protocolo."
+},
+{
+ tema:"climaterio", banca:"FGV 2024",
+ enunciado:"A menopausa é definida clinicamente como:",
+ alts:["A primeira irregularidade menstrual","Qualquer fogacho após os 40 anos","O período de transição com ciclos irregulares","A retirada cirúrgica do útero","Amenorreia por 12 meses consecutivos sem outra causa, marcando o fim da vida reprodutiva"],
+ correta:4,
+ coment:"<b>Menopausa</b> = <b>amenorreia por 12 meses consecutivos</b> (sem outra causa). O <b>climatério</b> é a transição mais ampla que envolve o período antes e depois da menopausa."
+},
+{
+ tema:"climaterio", banca:"EBSERH 2025",
+ enunciado:"Mulher no climatério com fogachos, secura vaginal e insônia. Sobre a terapia hormonal (TH), é correto afirmar que:",
+ alts:["É indicada para todas as mulheres indefinidamente","Não tem qualquer contraindicação","Substitui o rastreamento de câncer","Deve ser iniciada apenas após os 70 anos","Pode ser indicada para sintomas vasomotores moderados/intensos, avaliando contraindicações (ex.: câncer de mama, TEV)"],
+ correta:4,
+ coment:"A <b>terapia hormonal</b> pode aliviar sintomas vasomotores moderados a intensos, mas exige avaliação individual de <b>contraindicações</b> (ex.: câncer de mama/estrogênio-dependente, antecedente de TEV, doença hepática ativa)."
+},
+{
+ tema:"climaterio", banca:"ENARE 2024",
+ enunciado:"Sobre as Infecções Sexualmente Transmissíveis (IST), a abordagem sindrômica do corrimento vaginal e o tratamento de parcerias visam principalmente:",
+ alts:["Apenas tratar a paciente-índice","Interromper a cadeia de transmissão e prevenir reinfecção e complicações","Substituir a notificação compulsória","Evitar o uso de preservativo","Dispensar o aconselhamento"],
+ correta:1,
+ coment:"A abordagem sindrômica permite tratamento precoce; <b>tratar as parcerias</b> é essencial para <b>interromper a cadeia de transmissão</b>, prevenir reinfecção e complicações (ex.: DIP). Aconselhamento e prevenção combinada são parte do cuidado."
+},
+{
+ tema:"climaterio", banca:"AUCPP 2025",
+ enunciado:"Diante de uma mulher em situação de violência sexual atendida nas primeiras horas, são condutas previstas nos protocolos do MS, EXCETO:",
+ alts:["Profilaxia de ISTs e contracepção de emergência conforme indicação","Profilaxia pós-exposição ao HIV quando indicada","Exigir Boletim de Ocorrência como condição para o atendimento","Acolhimento e notificação compulsória","Oferecer apoio psicológico e encaminhamento à rede"],
+ correta:2,
+ coment:"O atendimento à mulher em situação de violência <b>NÃO pode exigir Boletim de Ocorrência</b> como condição. São previstos acolhimento, profilaxias (IST/HIV), contracepção de emergência, <b>notificação compulsória</b> e apoio psicossocial."
+},
+{
+ tema:"climaterio", banca:"UPE 2025",
+ enunciado:"A notificação compulsória de violência interpessoal/autoprovocada, incluindo violência contra a mulher, no SINAN é:",
+ alts:["Facultativa e apenas para casos fatais","Restrita a delegacias","Necessária apenas com autorização judicial","Exclusiva de hospitais de referência","Obrigatória para os serviços de saúde, mesmo em casos suspeitos"],
+ correta:4,
+ coment:"A <b>notificação de violência</b> é <b>compulsória</b> para os serviços de saúde (ficha do SINAN), incluindo casos <b>suspeitos ou confirmados</b>. É um instrumento de proteção e de vigilância, distinto da denúncia policial."
+}
+];
+
+</script>
+<script>
+// ====== CONFIG ======
+const WHATSAPP = "5581987488449";   // mesmo número da plataforma
+const MAX_TENT = 6;
+
+// ====== STATE ======
+let temaAtual=null, ordem=[], idx=0, respostas=[], nome="", inicio=0;
+
+const $ = id => document.getElementById(id);
+function show(s){
+  ["home","login","quiz","result"].forEach(x=>$("screen-"+x).classList.add("hide"));
+  $("screen-"+s).classList.remove("hide");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// ---- storage helpers (tentativas + último resultado) ----
+function tentKey(t){return "m3_tent_"+t}
+function lastKey(t){return "m3_last_"+t}
+function getTent(t){return parseInt(localStorage.getItem(tentKey(t))||"0",10)}
+function addTent(t){const n=getTent(t)+1;localStorage.setItem(tentKey(t),n);return n}
+
+// ====== HOME ======
+function renderTemas(){
+  const cont=$("temaList");cont.innerHTML="";
+  TEMAS.forEach(t=>{
+    const qtd=QUESTOES.filter(q=>q.tema===t.id).length;
+    const usadas=getTent(t.id);
+    const btn=document.createElement("button");
+    btn.className="tema-btn";
+    btn.innerHTML=`<span class="emoji">${t.emoji}</span>
+      <span class="t-info"><span class="t-nome">${t.nome}</span>
+      <span class="t-meta">${qtd} questões · ${usadas}/${MAX_TENT} tentativas usadas</span></span>
+      <span class="arrow">${usadas>=MAX_TENT?'<span class="lock">🔒</span>':'→'}</span>`;
+    btn.onclick=()=>openLogin(t.id);
+    cont.appendChild(btn);
+  });
+}
+function goHome(){temaAtual=null;renderTemas();show("home")}
+
+// ====== LOGIN ======
+function openLogin(tid){
+  temaAtual=TEMAS.find(t=>t.id===tid);
+  $("login-emoji").textContent=temaAtual.emoji;
+  $("login-tema").textContent=temaAtual.nome;
+  $("inSenha").value="";$("inNome").value="";
+  const m=$("loginMsg");m.className="msg";m.textContent="";
+  const usadas=getTent(tid);
+  $("lastBtn").style.display=localStorage.getItem(lastKey(tid))?"block":"none";
+  $("waBtn").style.display="none";
+  if(usadas>=MAX_TENT){
+    m.className="msg warn";
+    m.innerHTML=`⚠️ Você atingiu o limite de ${MAX_TENT} tentativas neste tema. Solicite liberação à professora.`;
+    $("waBtn").style.display="block";
+  }
+  show("login");
+}
+function tryStart(){
+  const senha=$("inSenha").value.trim();
+  nome=$("inNome").value.trim();
+  const m=$("loginMsg");
+  if(getTent(temaAtual.id)>=MAX_TENT){
+    m.className="msg warn";
+    m.innerHTML=`⚠️ Limite de ${MAX_TENT} tentativas atingido. Solicite liberação via WhatsApp.`;
+    $("waBtn").style.display="block";return;
+  }
+  if(senha!==temaAtual.senha){
+    m.className="msg err";m.textContent="🔒 Senha incorreta. Confira com a professora.";return;
+  }
+  if(nome.length<3){
+    m.className="msg err";m.textContent="✏️ Digite seu nome completo para continuar.";return;
+  }
+  startQuiz();
+}
+function openWA(){
+  const txt=encodeURIComponent(`Olá professora Fátima! Atingi o limite de tentativas no tema "${temaAtual.nome}" (Módulo 3 - Saúde da Mulher) e gostaria de liberação. Meu nome é: `);
+  window.open(`https://wa.me/${WHATSAPP}?text=${txt}`,"_blank");
+}
+function showLast(){
+  const data=localStorage.getItem(lastKey(temaAtual.id));
+  if(!data) return;
+  const r=JSON.parse(data);
+  renderResultFromSaved(r);
+}
+
+// ====== QUIZ ======
+function startQuiz(){
+  const pool=QUESTOES.filter(q=>q.tema===temaAtual.id);
+  ordem=[...pool.keys()].map(i=>i); // keep original order
+  idx=0;respostas=new Array(pool.length).fill(null);
+  window._pool=pool;
+  inicio=Date.now();
+  addTent(temaAtual.id);
+  renderQ();
+  show("quiz");
+}
+function renderQ(){
+  const pool=window._pool;const q=pool[idx];
+  $("qcount").textContent=`Questão ${idx+1} de ${pool.length}`;
+  $("qbar").style.width=((idx)/pool.length*100)+"%";
+  $("qbanca").textContent=q.banca;
+  $("qenun").textContent=q.enunciado;
+  const alts=$("qalts");alts.innerHTML="";
+  q.alts.forEach((a,i)=>{
+    const b=document.createElement("button");
+    b.className="alt"+(respostas[idx]===i?" sel":"");
+    b.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span><span>${a}</span>`;
+    b.onclick=()=>{respostas[idx]=i;renderQ()};
+    alts.appendChild(b);
+  });
+  const nb=$("nextBtn");
+  nb.disabled=respostas[idx]===null;
+  nb.textContent = idx===pool.length-1 ? "✅ Finalizar simulado" : "Responder →";
+}
+function nextQ(){
+  const pool=window._pool;
+  if(respostas[idx]===null) return;
+  if(idx<pool.length-1){idx++;renderQ();window.scrollTo({top:0,behavior:"smooth"});}
+  else finishQuiz();
+}
+
+// ====== RESULT ======
+function finishQuiz(){
+  const pool=window._pool;
+  let ok=0;
+  const detail=pool.map((q,i)=>{
+    const acerto=respostas[i]===q.correta;
+    if(acerto)ok++;
+    return {i, banca:q.banca, enun:q.enunciado, alts:q.alts, correta:q.correta, marcada:respostas[i], coment:q.coment, acerto};
+  });
+  const total=pool.length;
+  const pct=Math.round(ok/total*100);
+  const seg=Math.round((Date.now()-inicio)/1000);
+  const tempo=`${Math.floor(seg/60)}:${String(seg%60).padStart(2,"0")}`;
+  // pontos a revisar (temas/bancas das erradas → aqui agrupamos por enunciado curto)
+  const erradas=detail.filter(d=>!d.acerto);
+  const code=`RF26-M3-${temaAtual.id.toUpperCase().slice(0,4)}-${nome.split(" ")[0].toUpperCase().slice(0,6)}-${ok}of${total}-${pct}pct`;
+  const saved={tema:temaAtual.id,temaNome:temaAtual.nome,nome,ok,total,pct,tempo,code,detail};
+  localStorage.setItem(lastKey(temaAtual.id),JSON.stringify(saved));
+  renderResultFromSaved(saved);
+}
+function renderResultFromSaved(r){
+  $("res-tema").textContent=r.temaNome;
+  $("res-nome").textContent="👤 "+r.nome;
+  $("res-pct").textContent=r.pct+"%";
+  $("res-ok").textContent=r.ok;
+  $("res-no").textContent=r.total-r.ok;
+  $("res-time").textContent=r.tempo;
+  $("res-code").textContent=r.code;
+  // review
+  const err=r.detail.filter(d=>!d.acerto);
+  const rb=$("reviewBox");
+  if(err.length===0){
+    rb.innerHTML=`<h3>🎉 Excelente!</h3><p>Você acertou todas as questões deste tema. Parabéns!</p>`;
+  }else{
+    const items=err.map(d=>`<li>${d.enun.slice(0,90)}${d.enun.length>90?'…':''} <em>(${d.banca})</em></li>`).join("");
+    rb.innerHTML=`<h3>📌 Pontos para revisar (${err.length})</h3><ul>${items}</ul>`;
+  }
+  // gabarito
+  buildGab(r.detail);
+  $("gabWrap").classList.add("hide");
+  show("result");
+}
+function toggleGab(){$("gabWrap").classList.toggle("hide")}
+function buildGab(detail){
+  const w=$("gabWrap");w.innerHTML="";
+  detail.forEach((d,n)=>{
+    const div=document.createElement("div");
+    div.className="gab-item "+(d.acerto?"ok":"no");
+    let altsHtml=d.alts.map((a,i)=>{
+      let cls="gab-a";
+      if(i===d.correta)cls+=" correct";
+      if(i===d.marcada && i!==d.correta)cls+=" yourwrong";
+      const mark = i===d.correta ? "✔️ " : (i===d.marcada ? "✗ " : "");
+      return `<div class="${cls}">${mark}${String.fromCharCode(65+i)}) ${a}</div>`;
+    }).join("");
+    div.innerHTML=`<div class="gab-q">Q${n+1} <span class="banca">${d.banca}</span><br>${d.enun}</div>
+      ${altsHtml}
+      <div class="gab-coment"><b>Comentário:</b> ${d.coment}</div>`;
+    w.appendChild(div);
+  });
+}
+
+// ====== INIT ======
+renderTemas();
+show("home");
+</script>
+</body>
+</html>

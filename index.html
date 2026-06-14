@@ -1,38 +1,145 @@
 <!DOCTYPE html>
-<html lang="pt-BR" translate="no">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Language" content="pt-BR">
-<meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google" content="notranslate">
 <title>Resifriends 2026 — Preparatório para Residência</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Mulish',sans-serif;background:#0D0A08;color:#FDF6EC;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem}
-.card{background:#251A0E;border:1px solid rgba(201,168,76,.25);border-radius:20px;padding:3rem 2.5rem;max-width:520px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.5)}
-.logo{font-size:3rem;margin-bottom:1rem}
-.title{font-family:'Playfair Display',serif;font-size:1.9rem;color:#C9A84C;line-height:1.2;margin-bottom:.5rem}
-.sub{font-size:.9rem;color:#F5ECD8;opacity:.6;margin-bottom:2.5rem;line-height:1.6}
-.btn{display:block;width:100%;padding:1rem;border-radius:12px;font-size:1rem;font-weight:700;text-decoration:none;font-family:'Mulish',sans-serif;letter-spacing:.04em;margin-bottom:.85rem;transition:opacity .2s}
-.btn:hover{opacity:.85}
-.btn-aluno{background:linear-gradient(135deg,#A07828,#C9A84C);color:#0D0A08}
-.btn-prof{background:transparent;border:2px solid rgba(201,168,76,.35);color:#C9A84C}
-.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.2),transparent);margin:1.5rem 0}
-.footer{font-size:.72rem;color:#F5ECD8;opacity:.3;margin-top:1.5rem}
+  :root{
+    --gold:#C9A84C;
+    --gold-deep:#8B6914;
+    --brown:#4a3a1e;
+    --ink:#241c0e;
+    --paper:#fdfaf2;
+    --card:#ffffff;
+    --line:#e6dcc0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Mulish',sans-serif;
+    background:
+      radial-gradient(1100px 560px at 50% -8%, #2a2112 0%, #1a140a 55%, #120d06 100%);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:24px 18px;
+  }
+  .shell{max-width:560px;width:100%}
+  .card{
+    background:var(--card);
+    border-radius:24px;
+    box-shadow:0 24px 60px rgba(0,0,0,.45);
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .stripe{height:6px;background:linear-gradient(90deg,var(--gold-deep),var(--gold),var(--gold-deep))}
+  .head{
+    text-align:center;padding:40px 28px 28px;
+    background:linear-gradient(180deg,#fffdf6,#fbf5e6);
+    border-bottom:1px solid var(--line);
+  }
+  .crest{
+    width:72px;height:72px;margin:0 auto 14px;border-radius:50%;
+    background:linear-gradient(145deg,var(--gold),var(--gold-deep));
+    display:grid;place-items:center;font-size:2.1rem;
+    box-shadow:0 8px 20px rgba(139,105,20,.35);
+  }
+  .head h1{
+    font-family:'Playfair Display',serif;font-weight:900;
+    font-size:2rem;color:var(--brown);line-height:1.05;margin-bottom:8px;
+  }
+  .head h1 em{color:var(--gold-deep);font-style:italic}
+  .head .sub{font-size:.95rem;color:#8a7c5e;font-weight:700}
+  .head .by{font-size:.82rem;color:#b3a584;margin-top:10px;font-weight:700;letter-spacing:.02em}
+  .body{padding:26px 26px 30px}
+  .section-label{
+    text-align:center;font-size:.72rem;font-weight:800;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--gold-deep);margin-bottom:16px;
+  }
+  .mod-list{display:grid;gap:13px}
+  a.mod{
+    display:flex;align-items:center;gap:15px;text-decoration:none;
+    background:#fffdf7;border:1.5px solid var(--line);border-radius:15px;
+    padding:17px 18px;transition:transform .15s,border-color .2s,box-shadow .2s;
+  }
+  a.mod:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 10px 22px rgba(201,168,76,.2)}
+  a.mod .ic{
+    flex:none;width:48px;height:48px;border-radius:12px;
+    background:linear-gradient(145deg,#faf3df,#f0e6c8);
+    display:grid;place-items:center;font-size:1.5rem;
+    border:1px solid var(--line);
+  }
+  a.mod .info{flex:1}
+  a.mod .nome{font-weight:800;color:var(--brown);font-size:1.05rem;line-height:1.2}
+  a.mod .desc{font-size:.8rem;color:#9a8c6c;font-weight:600;margin-top:2px}
+  a.mod .go{color:var(--gold);font-size:1.4rem;font-weight:900}
+  a.mod.plano{background:linear-gradient(145deg,#2a2112,#1f1810);border-color:#3a2e18}
+  a.mod.plano .nome{color:var(--gold)}
+  a.mod.plano .desc{color:#bba85f}
+  a.mod.plano .ic{background:linear-gradient(145deg,var(--gold),var(--gold-deep));border:none}
+  a.mod.plano .go{color:var(--gold)}
+  .foot{text-align:center;color:#8a7c5e;font-size:.76rem;margin-top:18px;font-weight:600}
+  @media(max-width:480px){.head h1{font-size:1.65rem}}
 </style>
 </head>
 <body>
-<div class="card">
-  <div class="logo">⚕️</div>
-  <div class="title">Preparatório Resifriends 2026</div>
-  <div class="sub">Preparatório para Residência de Enfermagem<br><span style="opacity:.6">By Fátima Barbosa</span></div>
-  <a class="btn btn-aluno" href="resifriends_mod1.html">🏥 Módulo 1 — Fundamentos da Enfermagem</a>
-<a class="btn btn-aluno" href="resifriends_mod2.html">🔒 Módulo 2 — Segurança e Centro Cirúrgico</a>
-<a class="btn btn-aluno" href="plano_estudo_resifriends.html" style="background:linear-gradient(135deg,#6B3310,#9B6040)">📚 Meu Plano de Estudo</a>
-  
-  <div class="divider"></div>
-  <div class="footer">© 2026 Resifriends · Todos os direitos reservados</div>
+<div class="shell">
+  <div class="card">
+    <div class="stripe"></div>
+    <div class="head">
+      <div class="crest">⚕️</div>
+      <h1>Preparatório <em>Resifriends</em> 2026</h1>
+      <div class="sub">Preparatório para Residência de Enfermagem</div>
+      <div class="by">By Fátima Barbosa</div>
+    </div>
+    <div class="body">
+      <div class="section-label">Escolha seu módulo</div>
+      <div class="mod-list">
+
+        <a class="mod" href="resifriends_mod1.html">
+          <span class="ic">🏥</span>
+          <span class="info">
+            <span class="nome">Módulo 1 — Fundamentos da Enfermagem</span>
+            <span class="desc">Exame clínico, sinais vitais, medicação e mais</span>
+          </span>
+          <span class="go">→</span>
+        </a>
+
+        <a class="mod" href="resifriends_mod2.html">
+          <span class="ic">🔒</span>
+          <span class="info">
+            <span class="nome">Módulo 2 — Segurança e Centro Cirúrgico</span>
+            <span class="desc">Segurança do paciente e ambiente cirúrgico</span>
+          </span>
+          <span class="go">→</span>
+        </a>
+
+        <a class="mod" href="resifriends_mod3.html">
+          <span class="ic">🎀</span>
+          <span class="info">
+            <span class="nome">Módulo 3 — Saúde da Mulher</span>
+            <span class="desc">Pré-natal, parto, rastreio, climatério e IST</span>
+          </span>
+          <span class="go">→</span>
+        </a>
+
+        <a class="mod plano" href="plano_estudo_resifriends.html">
+          <span class="ic">📚</span>
+          <span class="info">
+            <span class="nome">Meu Plano de Estudo</span>
+            <span class="desc">Organize sua rotina rumo à aprovação</span>
+          </span>
+          <span class="go">→</span>
+        </a>
+
+      </div>
+      <div class="foot">© 2026 Resifriends · Todos os direitos reservados</div>
+    </div>
+  </div>
 </div>
 </body>
 </html>
